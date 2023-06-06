@@ -1,63 +1,77 @@
-# STUDY OF SOCKET PROGRAMMING WITH CLIENT-SERVER MODEL
+# 19CS406-EX-1 STUDY OF SOCKET PROGRAMMING WITH CLIENT-SERVER MODEL
 
-# EXP: 1
+## DATE : 08-03-2023
 
-# DATE :08-03-2023
+## AIM :
+To write a python program to perform client server model.
 
-# AIM :
-# Server:
-## 1. Create a server socket and bind it to port.
-## 2. Listen for new connection and when a connection arrives, accept it.
-## 3. Send server‟s date and time to the client.
-## 4. Read client‟s IP address sent by the client.
-## 5. Display the client details.
-## 6. Repeat steps 2-5 until the server is terminated.
-## 7. Close all streams.
-## 8. Close the server socket.
-## 9. Stop.
-# Client:
-## 1. Create a client socket and connect it to the server‟s port number.
-## 2. Retrieve its own IP address using built-in function.
-## 3. Send its address to the server.
-## 4. Display the date & time sent by the server.
-## 5. Close the input and output streams.
-## 6. Close the client socket.
-## 7. Stop
 
-# CLIENT PROGRAM :
-```PYTHON 3
+## ALGORITHM :
+Start the program. Get the frame size from the user To create the frame based on the user request. To send frames to server from the client side. If your frames reach the server it will send ACK signal to client otherwise it will sendNACK signal to client. Stop the program.
 
+
+
+## CLIENT PROGRAM :
+```
+\*
+NAME : ABINAYA S
+ROLL NO : 212222230002
 import socket
-from datetime import datetime
+
 s=socket.socket()
-s.bind(('localhost',8000))
+
+s.bind(('localhost',8080))
+
 s.listen(5)
+
 c,addr=s.accept()
-print("Client Address : ",addr)
-now = datetime.now()
-c.send(now.strftime("%d/%m/%Y %H:%M:%S").encode())
+
+while True:
+
+i=input("ENter a data:")
+
+c.send(i.encode())
+
 ack=c.recv(1024).decode()
+
 if ack:
-  print(ack)
-c.close()
+
+	print(ack)
+
+	continue
+
+else:
+
+	c.close()
+
+	break
+ ```
+## SERVER PROGRAM :
 ```
-# SERVER PROGRAM : 
-```PYTHON 3
 import socket
+
 s=socket.socket()
-s.connect(('localhost',8000))
-print(s.getsockname())
+
+s.connect(('localhost',8080))
+
+while True:
+
 print(s.recv(1024).decode())
-s.send("acknowledgement recived from the server".encode())
+
+s.send("Recieved".encode())
 ```
 
-# CLIENT OUTPUT : 
-![output](C2.png)
-
-# SERVER OUTPUT :
-![output](S2.png)
 
 
 
-# RESULT:
-## Thus, python program to perform stop and wait protocol was successfully executed.
+## CLIENT OUTPUT :
+![O1](https://github.com/LATHIKESHWARAN/19CS406-EX-1/assets/119393556/5a4f28ee-753d-44cb-a2bb-a76fba6bbb06)
+
+## SERVER OUTPUT :
+![O2](https://github.com/LATHIKESHWARAN/19CS406-EX-1/assets/119393556/aacb966e-f6b5-4968-8256-bb6542a954cd)
+
+
+
+
+## RESULT :
+Thus, python program to perform stop and wait protocol was successfully executed.
